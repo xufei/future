@@ -20,6 +20,19 @@ Scope.prototype.$clearPhase = function() {
 	this.$$phase = null;
 };
 
+Scope.prototype.$new = function(isolated) {
+	var child = new Scope();
+	child.$$root = this.$$root;
+	child.$$asyncQueue = this.$$asyncQueue;
+	child.$$postDigestQueue = this.$$postDigestQueue;
+	this.$$children.push(child);
+	child.$$watchers = [];
+	child.$$listeners = {};
+	child.$$children = [];
+	child.$parent = this;
+	return child;
+};
+
 Scope.prototype.$watch = function(watchFn, listenerFn, valueEq) {
 	var self = this;
 
