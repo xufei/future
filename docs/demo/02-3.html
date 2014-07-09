@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<script type="text/javascript" src="libs/angular/angular.min.js"></script>
+		<script type="text/javascript">
+			var app = angular.module("test", []);
+
+			app.controller("OuterCtrl", function ($scope) {
+				$scope.a = 1;
+			});
+
+			app.controller("InnerCtrl", function ($scope) {
+				$scope.a = 100;
+				
+				$scope.increaseOuterA = function() {
+					$scope.$parent.a++;
+				};
+			});
+		</script>
+	</head>
+	<body ng-app="test">
+		<div ng-controller="OuterCtrl">
+			<span ng-bind="a"></span>
+			<div ng-controller="InnerCtrl">
+				<span ng-bind="a"></span>
+				<button ng-click="increaseOuterA()">increase outer a</button>
+			</div>
+		</div>
+	</body>
+</html>
