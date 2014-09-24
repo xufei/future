@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="libs/lodash.min.js"></script>
+	<script src="src/thin.js"></script>
+</head>
+<body>
+
+	<script id="" type="text/template">
+		<input vm-value="pet.name"/>
+	</script>
+
+	<div vm-model="PersonVM">
+		<input vm-value="name"/>
+		<input vm-value="name"/>
+		<input vm-value="age"/>
+		<input vm-value="aaa"/>
+		<button vm-click="add">add</button>
+		<button vm-click="update">update</button>
+		<button vm-click="delete">delete</button>
+		<button vm-click="batch">batch</button>
+
+		<div vm-repeat="pet in pets"></div>
+	</div>
+
+	<script>
+		function PersonVM() {
+			this.name = "John";
+			this.aaa = "aaa";
+			this.pets = [
+				{
+					name: "Tom",
+					type: "Cat",
+					gender: 1
+				},
+				{
+					name: "Jerry",
+					type: "Mouse",
+					gender: 0
+				}
+			];
+
+			this.update = function() {
+				this.name = "Jack";
+			};
+
+			this.add = function() {
+				this.age = 20;
+			};
+
+			this.delete = function() {
+				delete this.aaa;
+			};
+
+			this.batch = function() {
+				this.name = "White";
+				this.age = 10;
+				this.aaa = "1111";
+				delete this.aaa;
+			};
+		}
+	</script>
+</body>
+</html>
