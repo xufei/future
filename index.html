@@ -9,26 +9,31 @@
 <body>
 
 	<script id="" type="text/template">
-		<input vm-value="pet.name"/>
+		<input data-key="pet.name"/>
 	</script>
 
-	<div vm-model="PersonVM">
-		<input vm-value="name"/>
-		<input vm-value="name"/>
-		<input vm-value="age"/>
-		<input vm-value="aaa"/>
-		<button vm-click="add">add</button>
-		<button vm-click="update">update</button>
-		<button vm-click="delete">delete</button>
-		<button vm-click="batch">batch</button>
+	<div data-vm="PersonVM">
+		<input data-key="name"/>
+		<input data-key="name"/>
+		<input data-key="age"/>
+		<select data-key="gender" data-options="genders">
+		</select>
+		<input data-key="gender"/>
+		<input data-key="aaa"/>
+		<button data-click="add">add</button>
+		<button data-click="update">update</button>
+		<button data-click="delete">delete</button>
+		<button data-click="batch">batch</button>
 
-		<div vm-repeat="pet in pets"></div>
+		<div data-repeat="pet in pets"></div>
 	</div>
 
 	<script>
 		function PersonVM() {
 			this.name = "John";
 			this.aaa = "aaa";
+			this.genders = ["Male", "Female"];
+
 			this.pets = [
 				{
 					name: "Tom",
