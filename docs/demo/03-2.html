@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="libs/angular/angular.min.js"></script>
+    <script type="text/javascript">
+        angular.module("moduleB", [])
+                .service("GreetService", function() {
+                    return {
+                        greet: function() {
+                            return "Hello, world";
+                        }
+                    };
+                });
+
+        angular.module("moduleA", ["moduleB"])
+                .controller("TestCtrl", ["$scope", "GreetService", function($scope, GreetService) {
+                    $scope.words = "";
+                    $scope.greet = function() {
+                        $scope.words = GreetService.greet();
+                    };
+                }]);
+    </script>
+</head>
+<body>
+<div ng-app="moduleA">
+    <div ng-controller="TestCtrl">
+        <span ng-bind="words"></span>
+        <button ng-click="greet()">Greet</button>
+    </div>
+</div>
+</body>
+</html>

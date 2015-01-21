@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="libs/angular/angular.min.js"></script>
+    <script type="text/javascript">
+        angular.module("test", [])
+                .controller("TestCtrl", ["$scope", function($scope) {
+                    $scope.a = 1;
+                }]);
+
+        angular.element(document).ready(function() {
+            angular.bootstrap(document.getElementById("app1"), ["test"]);
+            angular.bootstrap(document.getElementById("app2"), ["test"]);
+        });
+    </script>
+</head>
+<body>
+<div id="app1" ng-controller="TestCtrl">
+    {{a}}
+</div>
+<div id="app2" ng-controller="TestCtrl">
+    {{a}}
+</div>
+</body>
+</html>

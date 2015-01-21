@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="libs/angular/angular.min.js"></script>
+    <script type="text/javascript">
+        angular.module("moduleA", [])
+                .factory("A", function() {
+                    return "a";
+                })
+                .factory("B", function() {
+                    return "b";
+                });
+
+        angular.module("moduleB", [])
+                .factory("A", function() {
+                    return "A";
+                })
+                .factory("B", function() {
+                    return "B";
+                });
+
+        angular.module("moduleC", ["moduleA", "moduleB"])
+                .factory("C", ["A", "B", function(A, B) {
+                    return A + B;
+                }])
+                .controller("TestCtrl", ["$scope", "C", function($scope, C) {
+                    $scope.c = C;
+                }]);
+
+        angular.module("moduleD", ["moduleB", "moduleA"])
+                .factory("C", ["A", "B", function(A, B) {
+                    return A + B;
+                }])
+                .controller("TestCtrl", ["$scope", "C", function($scope, C) {
+                    $scope.c = C;
+                }]);
+
+        angular.module("moduleE", ["moduleA"])
+                .factory("A", function() {
+                    return "AAAAA";
+                })
+                .factory("C", ["A", "B", function(A, B) {
+                    return A + B;
+                }])
+                .controller("TestCtrl", ["$scope", "C", function($scope, C) {
+                    $scope.c = C;
+                }]);
+
+        angular.element(document).ready(function() {
+            angular.bootstrap(document.getElementById("app1"), ["moduleC"]);
+            angular.bootstrap(document.getElementById("app2"), ["moduleD"]);
+            angular.bootstrap(document.getElementById("app3"), ["moduleE"]);
+        });
+    </script>
+</head>
+<body>
+<div id="app1" ng-controller="TestCtrl">
+    <span ng-bind="c"></span>
+</div>
+
+<div id="app2" ng-controller="TestCtrl">
+    <span ng-bind="c"></span>
+</div>
+
+<div id="app3" ng-controller="TestCtrl">
+    <span ng-bind="c"></span>
+</div>
+</body>
+</html>
